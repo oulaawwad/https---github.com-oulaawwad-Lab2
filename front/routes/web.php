@@ -13,7 +13,7 @@
 |
 */
 $router->get('/', function () use ($router) {
-	return response()->json(["Message" => 'Welcome to Frontend Services.']);
+	return response()->json(["Message" => 'Welcome to Frontend.']);
 });
 
 $router->group(['prefix' => 'search'] , function($router){

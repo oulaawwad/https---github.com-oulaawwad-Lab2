@@ -15,7 +15,7 @@ class CatController extends Controller
 	public function __construct() {}
 
 
-	public function showRelatedBooks($topic){
+	public function showRelatedBooks($type){
 
 
 	   
@@ -35,16 +35,20 @@ class CatController extends Controller
 			
 		}
 
-//book format;  id, title, count,price
+//book format;  id, title, count,type
 
 		for ($i=0 ; $i<sizeof($books)-1 ; $i++)
+		
 		{
 					$bookinfo[$i] = explode(",",$books[$i]);
-					if ($flag==true)
-					{
+					if ($bookinfo[$i][3] == $type){
+					
 						$count++;
 						$json_ob[$count]['ID']=$bookinfo[$i][0];
 						$json_ob[$count]['Tiltle'] = $bookinfo[$i][1];
+					}
+					else{
+						return response()->json("error");
 					}
 		}
 
