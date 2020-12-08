@@ -18,8 +18,6 @@ class FrontController extends Controller{
 		$url = 'http://192.168.1.23:8000/query/booktype/' . $type;
 		
 		$page = file_get_contents($url); 
-		$end = microtime(true); 
-		echo "time:" . ($end - $start);
 		return response()->json(json_decode($page));
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////
