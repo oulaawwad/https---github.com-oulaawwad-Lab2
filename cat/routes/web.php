@@ -14,10 +14,11 @@
 */
 
 $router->get('/', function () use ($router) {
-	return response()->json(['Message' => 'Welcome to Catalogue server.']);
+	return response()->json(['Message' => 'Welcome to catalog server.']);
 });
 
 $router->group(['prefix' => 'query'], function($router){
-	$router->get('booktopic/{topic}','CatController@showRelatedBooks');
+	$router->get('booktype/{type}','CatController@showBooks');
+	$router->get('bookid/{id}', 'CatController@showbook');
 });
 

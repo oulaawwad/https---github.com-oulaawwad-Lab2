@@ -13,9 +13,11 @@ class CatController extends Controller
      * @return void
      */
 	public function __construct() {}
+////////////////////////////////////////////////////////////////////////////////////
+//		$url = 'http://192.168.1.23:8000/query/booktype/' . $type;
+/////////////////////////////////////////////////////////////////////////////////
 
-
-	public function showRelatedBooks($type){
+	public function showBooks($type){
 
 
 	   
@@ -26,6 +28,8 @@ class CatController extends Controller
 	$flag=true;
 	$count=-1;
 	$json_ob;
+
+
 		$file = new \Illuminate\Filesystem\Filesystem();
 		$content = $file->get(__DIR__.'/../../books.txt');
 		$books = explode ("\n",$content);
@@ -46,6 +50,7 @@ class CatController extends Controller
 						$count++;
 						$json_ob[$count]['ID']=$bookinfo[$i][0];
 						$json_ob[$count]['Tiltle'] = $bookinfo[$i][1];
+						$json_ob[$count]['Count']=$bookinfo[$i][2];
 					}
 					else{
 						return response()->json("error");
@@ -57,7 +62,66 @@ class CatController extends Controller
 	
 
 
-}///////// 
+}/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+public function showbook($id){
+
+
+	   
+	//1- get file 
+
+
+	$bookinfo;
+	$flag=true;
+	$count=-1;
+	$json_ob;
+
+
+		$file = new \Illuminate\Filesystem\Filesystem();
+		$content = $file->get(__DIR__.'/../../books.txt');
+		$books = explode ("\n",$content);
+		if (sizeof($books) < 2){
+			$flag=false;
+			return response()->json(['Message' => 'There is no books in store.']);
+			
+		}
+
+//book format;  id, title, count,type
+
+		for ($i=0 ; $i<sizeof($books)-1 ; $i++)
+		
+		{
+					$bookinfo[$i] = explode(",",$books[$i]);
+					if ($bookinfo[$i][0] == $id){
+					
+						
+						$json_ob[$count]['ID']=$bookinfo[$i][0];
+						$json_ob[$count]['Tiltle'] = $bookinfo[$i][1];
+						$json_ob[$count]['Count']=$bookinfo[$i][2];
+					}
+					else{
+						return response()->json("error");
+					}
+		}
+
+		return response()->json($json_ob);
+		
+	
+
+
+}////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+
+
+
+
+
+
+
+
+
 
 
 }////////////// class

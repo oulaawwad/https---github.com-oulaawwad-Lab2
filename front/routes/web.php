@@ -13,9 +13,13 @@
 |
 */
 $router->get('/', function () use ($router) {
-	return response()->json(["Message" => 'Welcome to Frontend.']);
+	return response()->json(["Message" => 'Welcome to Frontend Services.']);
 });
 
 $router->group(['prefix' => 'search'] , function($router){
 	$router->get('{topic}','FrontController@getBooks');
+});
+
+$router->group(['prefix' => 'lookup'] , function($router){
+	$router->get('{id}','FrontController@getBook');
 });

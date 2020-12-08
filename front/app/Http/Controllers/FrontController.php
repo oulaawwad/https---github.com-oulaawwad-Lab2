@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;// To use cache
+
 
 
 class FrontController extends Controller{
@@ -12,16 +12,32 @@ class FrontController extends Controller{
 	
   /////////// show all books
 
-	 public function getBooks($topic){
+	 public function getBooks($type){
 	
 		$url = '';
-		$url = 'http://192.168.19.141:8000/query/booktopic/' . $topic;
+		$url = 'http://192.168.1.23:8000/query/booktype/' . $type;
 		
 		$page = file_get_contents($url); 
 		$end = microtime(true); 
 		echo "time:" . ($end - $start);
 		return response()->json(json_decode($page));
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	public function getBook($id){
+	
+		$url = '';
+        $url = 'http://192.168.1.23:8000/query/bookid/' . $id;
+		
+		$page = file_get_contents($url); 
+		return response()->json(json_decode($page));
+	}
+
+
+
+
+
 
 
 }
