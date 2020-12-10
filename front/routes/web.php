@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'search'] , function($router){
-	$router->get('{topic}','FrontController@getBooks');
+	$router->get('{type}','FrontController@getBooks');
 });
 
 $router->group(['prefix' => 'lookup'] , function($router){

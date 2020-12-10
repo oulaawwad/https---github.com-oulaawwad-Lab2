@@ -98,7 +98,7 @@ public function showbook($id){
 					$bookinfo[$i] = explode(",",$books[$i]);
 					if ($bookinfo[$i][0] == $id){
 					
-						
+						$count++;
 						$json_ob[$count]['ID']=$bookinfo[$i][0];
 						$json_ob[$count]['Tiltle'] = $bookinfo[$i][1];
 						$json_ob[$count]['Count']=$bookinfo[$i][2];
