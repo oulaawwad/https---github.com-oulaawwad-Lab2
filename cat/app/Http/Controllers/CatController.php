@@ -17,7 +17,10 @@ class CatController extends Controller
 //		$url = 'http://192.168.1.23:8000/query/booktype/' . $type;
 /////////////////////////////////////////////////////////////////////////////////
 
-	public function showBooks($type){
+
+
+//book format;  id, title, count,type
+public function showBooks($type){
 
 
 	   
@@ -39,7 +42,7 @@ class CatController extends Controller
 			
 		}
 
-//book format;  id, title, count,type
+
 
 		for ($i=0 ; $i<sizeof($books)-1 ; $i++)
 		
@@ -64,6 +67,7 @@ class CatController extends Controller
 
 }/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//book format;  id, title, count,type
 
 public function showbook($id){
 
@@ -87,7 +91,6 @@ public function showbook($id){
 			
 		}
 
-//book format;  id, title, count,type
 
 		for ($i=0 ; $i<sizeof($books)-1 ; $i++)
 		

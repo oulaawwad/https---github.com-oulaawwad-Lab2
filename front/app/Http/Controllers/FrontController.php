@@ -33,9 +33,4 @@ class FrontController extends Controller{
 	}
 
 
-
-
-
-
-
 }
