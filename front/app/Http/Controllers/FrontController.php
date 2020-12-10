@@ -9,10 +9,7 @@ use Illuminate\Http\Request;
 class FrontController extends Controller{
 
   public function __construct(){}
-	
-  /////////// show all books
-
-	 public function getBooks($type){
+	public function getBooks($type){
 	
 		if (Cache::has($type))
 		{	

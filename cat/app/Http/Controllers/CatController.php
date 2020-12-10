@@ -87,7 +87,7 @@ public function showbook($id){
 		$books = explode ("\n",$content);
 		if (sizeof($books) < 2){
 			$flag=false;
-			return response()->json(['Message' => 'There is no books in store.']);
+			return response()->json(['Message' => 'There is no available books ']);
 			
 		}
 
