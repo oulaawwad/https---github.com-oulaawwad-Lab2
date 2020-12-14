@@ -10,11 +10,14 @@ class FrontController extends Controller{
 
   public function __construct(){}
 	public function getBooks($type){
-	
+		$start = microtime(true);	
+
 		if (Cache::has($type))
 		{	
 
 			$book=Cache::get($type);
+			$endcache1 = microtime(true); 
+			echo "cache:" . ($endcache1 - $start);
 			return response()->json(json_decode($book));
 		}
 		else
@@ -32,7 +35,9 @@ class FrontController extends Controller{
 	            $url = 'http://192.168.1.23:8000/query/booktype/' . $type;//// my ip address
 				$page = file_get_contents($url); 
 				Cache::put($type , $page ,300);
-				$load=false;
+				$end = microtime(true); 
+	        	echo ":" . ($end - $start);
+				$load=true;
 				return response()->json(json_decode($page));
 		
 
@@ -41,9 +46,12 @@ class FrontController extends Controller{
 			else
 			{
 
-                $url = ''; //// second ip address
+	            $url = 'http://192.168.1.23:8001/query/booktype/' . $type;//// my ip address
 	            $page = file_get_contents($url); 
-	            Cache::put($type , $page ,300);
+				Cache::put($type , $page ,300);
+				$end = microtime(true); 
+				echo ":" . ($end - $start);
+				$load=false;
 	            return response()->json(json_decode($page));
 	
             }
@@ -54,10 +62,13 @@ class FrontController extends Controller{
 
 
 	public function getBook($id){
+		$start = microtime(true);	
 		if (Cache::has($id))
 		{	
 
 			$book=Cache::get($id);
+			$endcache1 = microtime(true); 
+				echo "cache:" . ($endcache1 - $start);
 			return response()->json(json_decode($book));
 		}
 		else
@@ -72,6 +83,10 @@ class FrontController extends Controller{
 				$url = 'http://192.168.1.23:8000/query/bookid/' . $id;
 				$page = file_get_contents($url); 
 				Cache::put($id , $page ,300);
+				$end = microtime(true); 
+				echo ":" . ($end - $start);
+				$load=true;;
+
 				return response()->json(json_decode($page));
 		
 
@@ -82,7 +97,11 @@ class FrontController extends Controller{
 
 				$url = ''; //// second ip address
 	            $page = file_get_contents($url); 
-	            Cache::put($type , $page ,300);
+				Cache::put($type , $page ,300);
+				$end = microtime(true); 
+				echo ":" . ($end - $start);
+				$load=false;
+
 	            return response()->json(json_decode($page));
 
 			}
@@ -158,7 +177,9 @@ class FrontController extends Controller{
 				$page = file_get_contents($url);
 	         	Cache::put('Buy'.$id , $page ,60);
 	        	$end = microtime(true); 
-	        	echo "oo:" . ($end - $start);
+				echo "oo:" . ($end - $start);
+				$load=true;
+
 		        return response()->json(json_decode($page));
 		
 
@@ -171,7 +192,8 @@ class FrontController extends Controller{
 				$page = file_get_contents($url);
 	         	Cache::put('Buy'.$id , $page ,60);
 	        	$end = microtime(true); 
-	        	echo "oo:" . ($end - $start);
+				echo "oo:" . ($end - $start);
+				$load=true;
 		        return response()->json(json_decode($page));
 
 			}
