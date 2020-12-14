@@ -63,7 +63,6 @@ class FrontController extends Controller{
 		else
 		{
 
-
             $load=load_flag(1);
             $url = '';
 
