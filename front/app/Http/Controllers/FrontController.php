@@ -129,5 +129,55 @@ class FrontController extends Controller{
 
 	}
 
+	public function buyBook($id){
+		$start = microtime(true);	
+		if (Cache::has('Buy' . $id)){	
+			$value = Cache::get('Buy' . $id);	
+			$val = json_decode($value)->Message;
+			if ($val != 'Buy done successfuly.'){
+				$endcache1 = microtime(true); 
+				echo "cache:" . ($endcache1 - $start);
+				return response()->json(json_decode($value));
+			}
+			Cache::forget('Buy' . $id);
+		}
+
+			 $url = '';
+			
+            $load=load_flag(2);
+            $url = '';
+
+			if($load)
+			{
+
+				$url = $url = 'http://192.168.1.23:8000/buy/' . $id ;
+				$page = file_get_contents($url);
+	         	Cache::put('Buy'.$id , $page ,60);
+	        	$end = microtime(true); 
+	        	echo "oo:" . ($end - $start);
+		        return response()->json(json_decode($page));
+		
+
+			}
+
+
+			else{
+
+				$url = $url = 'http://192.168.19.142:8001/buy/' . $id ;
+				$page = file_get_contents($url);
+	         	Cache::put('Buy'.$id , $page ,60);
+	        	$end = microtime(true); 
+	        	echo "oo:" . ($end - $start);
+		        return response()->json(json_decode($page));
+
+			}
+
+
+
+
+
+		
+	}	
+
 
 }

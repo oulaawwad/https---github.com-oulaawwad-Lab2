@@ -12,7 +12,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return response()->json(['Message' => 'Order Service !']);
+});
+$router->group(['prefix' => 'buy'] , function($router){
+	$router->get('{id}' , 'OrderController@buy');
 });

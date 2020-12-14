@@ -20,5 +20,9 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'query'], function($router){
 	$router->get('booktype/{type}','CatController@showBooks');
 	$router->get('bookid/{id}', 'CatController@showbook');
+	$router->get('check/{id}', 'CatalogueController@checkStore');
 });
 
+$router->group(['prefix' => ''], function($router){
+	$router->get('buy/{id}', 'CatController@buyBook');
+});

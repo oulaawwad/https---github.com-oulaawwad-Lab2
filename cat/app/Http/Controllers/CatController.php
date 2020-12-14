@@ -117,10 +117,58 @@ public function showbook($id){
 
 
 
+public function checkStore($id){
+	$file = new \Illuminate\Filesystem\Filesystem();
+	$content = $file->get(__DIR__.'/../../books.txt');
+	$books = explode ("\n",$content);
+	if (sizeof($books) < 2){
+		return response()->json(['Message' => 'error']);
+	}
+	$book_details;
+	$flag = false;
+	for ($i=0 ; $i<sizeof($books)-1 ; $i++){
+		$book_details[$i] = explode(",",$books[$i]);
+		if ($book_details[$i][4] == $id){
+			if ($book_details[$i][1] < 1){
+				return response()->json(['Message' => 'error']);
+			}
+			$book_details[$i][1]--;
+			$book_details[$i][1] =$book_details[$i][1].""; 
+			$flag=true;
+		}
+	}
+	
+	for ($i=0 ; $i<sizeof($books)-1 ; $i++){ 
+		$books[$i] = implode(",",$book_details[$i]);
+	}
+	$content = implode("\n",$books);
+	$file->put(__DIR__.'/../../books.txt' , $content,false);
+	return response()->json(['Message' => 'done']);
+ }
 
 
+public function buyBook($id){
+	$file = new \Illuminate\Filesystem\Filesystem();
+	$content = $file->get(__DIR__.'/../../books.txt');
+	$books = explode ("\n",$content);
 
+	if (sizeof($books) < 2){
+		return response()->json(['Message' => 'add Books in store']);
+	}
+	$book_details;
 
+	for ($i=0 ; $i<sizeof($books)-1 ; $i++){
+		$book_details[$i] = explode(",",$books[$i]);
+		if ($book_details[$i][4] == $id){
+			if ($book_details[$i][1] <= 0){
+				return response()->json(["Message"=>'Error.']);
+			}
+			break;
+		}
+	}
+	return response()->json(['Message' => 'done successfuly.']);
+}
+//
 
 
 
